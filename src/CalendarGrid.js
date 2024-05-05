@@ -14,9 +14,9 @@ const CalendarGrid = () => {
     }, [year, month]);
 
     const baseData = useMemo(() => [
-        { name: 'Alice', ...days.reduce((acc, day) => ({ ...acc, [format(day, 'yyyy-MM-dd')]: Math.random() > 0.5 ? 'Busy' : 'Free' }), {}) },
-        { name: 'Bob', ...days.reduce((acc, day) => ({ ...acc, [format(day, 'yyyy-MM-dd')]: Math.random() > 0.5 ? 'Busy' : 'Free' }), {}) },
-        { name: 'Charlie', ...days.reduce((acc, day) => ({ ...acc, [format(day, 'yyyy-MM-dd')]: Math.random() > 0.5 ? 'Busy' : 'Free' }), {}) },
+        { name: 'Alice', remainingHolidays: Math.floor(Math.random() * 16), availableTime: Math.floor(Math.random() * 16), ...days.reduce((acc, day) => ({ ...acc, [format(day, 'yyyy-MM-dd')]: Math.random() > 0.5 ? 'Busy' : 'Free' }), {}) },
+        { name: 'Bob', remainingHolidays: Math.floor(Math.random() * 16), availableTime: Math.floor(Math.random() * 16), ...days.reduce((acc, day) => ({ ...acc, [format(day, 'yyyy-MM-dd')]: Math.random() > 0.5 ? 'Busy' : 'Free' }), {}) },
+        { name: 'Charlie', remainingHolidays: Math.floor(Math.random() * 16), availableTime: Math.floor(Math.random() * 16), ...days.reduce((acc, day) => ({ ...acc, [format(day, 'yyyy-MM-dd')]: Math.random() > 0.5 ? 'Busy' : 'Free' }), {}) },
     ], [days]);
 
     const data = useMemo(() => {
@@ -25,13 +25,12 @@ const CalendarGrid = () => {
 
     const columns = useMemo(() => [
         { Header: 'Name', accessor: 'name' },
+        { Header: 'Remaining Holidays', accessor: 'remainingHolidays' },
+        { Header: 'Available Time', accessor: 'availableTime' },
         ...days.map(day => ({
             Header: format(day, 'MMM d'),
             accessor: format(day, 'yyyy-MM-dd'),
-            Cell: ({ value }) => <div style={{
-                color: value === 'Free' ? 'blue' : 'red',
-                fontWeight: 'bold'
-            }}>{value}</div>
+            Cell: ({ value }) => <div style={{ color: value === 'Free' ? 'blue' : 'red', fontWeight: 'bold' }}>{value}</div>
         })),
     ], [days]);
 
@@ -59,14 +58,12 @@ const CalendarGrid = () => {
                     style={{ padding: '8px', width: '80px' }}
                 />
             </div>
-            <table {...tableInstance.getTableProps()} style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <table {...tableInstance.getTableProps()}>
                 <thead>
                     {tableInstance.headerGroups.map(headerGroup => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps()} style={{ background: '#f0f0f0', fontWeight: 'bold', padding: '10px', border: '1px solid gray' }}>
-                                    {column.render('Header')}
-                                </th>
+                                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
                             ))}
                         </tr>
                     ))}
@@ -77,9 +74,7 @@ const CalendarGrid = () => {
                         return (
                             <tr {...row.getRowProps()}>
                                 {row.cells.map(cell => (
-                                    <td {...cell.getCellProps()} style={{ padding: '10px', textAlign: 'center', border: '1px solid gray' }}>
-                                        {cell.render('Cell')}
-                                    </td>
+                                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                 ))}
                             </tr>
                         );
