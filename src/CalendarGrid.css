@@ -1,0 +1,38 @@
+.CalendarGrid {
+    margin-bottom: 20px;
+}
+
+.CalendarGrid input, .CalendarGrid select {
+    padding: 8px;
+    margin-right: 10px;
+}
+
+.CalendarGrid input[type="number"] {
+    width: 80px;
+}
+
+.CalendarGrid table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.CalendarGrid th, .CalendarGrid td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid gray;
+}
+
+.CalendarGrid th {
+    background: #f0f0f0;
+    font-weight: bold;
+}
+
+.CalendarGrid td.Free {
+    color: blue;
+    font-weight: bold;
+}
+
+.CalendarGrid td.Busy {
+    color: red;
+    font-weight: bold;
+}
