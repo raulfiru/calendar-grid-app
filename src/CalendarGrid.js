@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useTable } from 'react-table';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval } from 'date-fns';
 
@@ -6,6 +6,21 @@ const CalendarGrid = () => {
     const [year, setYear] = useState(new Date().getFullYear());  // Defaults to the current year
     const [month, setMonth] = useState(new Date().getMonth() + 1); // Defaults to the current month (1-12)
     const [filterName, setFilterName] = useState('');
+    const [people, setPeople] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/data.json');  // Adjust the path if your file is located elsewhere
+                const data = await response.json();
+                setPeople(data);
+            } catch (error) {
+                console.error('Failed to fetch data', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const days = useMemo(() => {
         const startDate = startOfMonth(new Date(year, month - 1));
@@ -13,15 +28,17 @@ const CalendarGrid = () => {
         return eachDayOfInterval({ start: startDate, end: endDate });
     }, [year, month]);
 
-    const baseData = useMemo(() => [
-        { name: 'Alice', remainingHolidays: Math.floor(Math.random() * 16), availableTime: Math.floor(Math.random() * 16), ...days.reduce((acc, day) => ({ ...acc, [format(day, 'yyyy-MM-dd')]: Math.random() > 0.5 ? 'Busy' : 'Free' }), {}) },
-        { name: 'Bob', remainingHolidays: Math.floor(Math.random() * 16), availableTime: Math.floor(Math.random() * 16), ...days.reduce((acc, day) => ({ ...acc, [format(day, 'yyyy-MM-dd')]: Math.random() > 0.5 ? 'Busy' : 'Free' }), {}) },
-        { name: 'Charlie', remainingHolidays: Math.floor(Math.random() * 16), availableTime: Math.floor(Math.random() * 16), ...days.reduce((acc, day) => ({ ...acc, [format(day, 'yyyy-MM-dd')]: Math.random() > 0.5 ? 'Busy' : 'Free' }), {}) },
-    ], [days]);
-
     const data = useMemo(() => {
-        return filterName ? baseData.filter(person => person.name.toLowerCase().includes(filterName.toLowerCase())) : baseData;
-    }, [baseData, filterName]);
+        return (filterName ? people.filter(person => person.name.toLowerCase().includes(filterName.toLowerCase())) : people)
+            .map(person => ({
+                ...person,
+                ...days.reduce((acc, day, index) => ({
+                    ...acc,
+                    [format(day, 'yyyy-MM-dd')]: person['2024'] && person['2024'][month.toString()] ? 
+                      (person['2024'][month.toString()][index] || 'Unknown') : 'Unknown'
+                }), {})
+            }));
+    }, [people, days, filterName, month]);
 
     const columns = useMemo(() => [
         { Header: 'Name', accessor: 'name' },
@@ -46,7 +63,11 @@ const CalendarGrid = () => {
                     onChange={e => setFilterName(e.target.value)}
                     style={{ padding: '8px', marginRight: '10px' }}
                 />
-                <select value={month} onChange={e => setMonth(parseInt(e.target.value, 10))} style={{ padding: '8px', marginRight: '10px' }}>
+                <select 
+                    value={month} 
+                    onChange={e => setMonth(parseInt(e.target.value, 10))} 
+                    style={{ padding: '8px', marginRight: '10px' }}
+                >
                     {Array.from({ length: 12 }, (_, i) => (
                         <option key={i + 1} value={i + 1}>{format(new Date(year, i), 'MMMM')}</option>
                     ))}

@@ -1,0 +1,29 @@
+[
+    {
+        "name": "Alice",
+        "remainingHolidays": 10,
+        "availableTime": 12,
+        "2024": {
+            "5": ["Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free"],
+            "6": ["Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free", "Busy", "Free"]
+        }
+    },
+    {
+        "name": "Bob",
+        "remainingHolidays": 8,
+        "availableTime": 15,
+        "2024": {
+            "5": ["Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy"],
+            "6": ["Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free"]
+        }
+    },
+    {
+        "name": "Charlie",
+        "remainingHolidays": 5,
+        "availableTime": 7,
+        "2024": {
+            "5": ["Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free", "Free"],
+            "6": ["Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy", "Busy"]
+        }
+    }
+]
