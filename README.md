@@ -1,4 +1,5 @@
-#React component building using chatGPT
+# React component building using chatGPT
+
 [Chat link](https://chat.openai.com/share/b350dc13-90d6-41d1-9fc7-ffd413582b5e).
 
 # Getting Started with Create React App
